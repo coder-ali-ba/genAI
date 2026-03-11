@@ -2,6 +2,8 @@ import { hash } from "bcryptjs";
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import tokenBlacklistModel from "../models/blacklistModel.js";
+
 const registerController = async (req, res) => {
   const { email, userName, password } = req.body;
   if (!userName || !email || !password) {
@@ -75,4 +77,27 @@ const loginUserController = async (req, res) => {
   })
 };
 
-export { registerController, loginUserController };
+const logoutController = async (req , res) => {
+ const token = req.cookies.token;
+ if(token){
+  await tokenBlacklistModel.create({token})
+ }
+ res.clearCookie("token")
+ res.status(200).json({
+  message : "User logedout successfully"
+ })
+}
+
+const getMeController = async (req , res) => {
+  const user = await userModel.findById(req.user.id);
+  res.status(200).json({
+    message : "user details fetched successfully",
+    user:{
+      id : user._id,
+      name : user.userName,
+      email : user.email
+    }
+  })
+}
+
+export { registerController, loginUserController , logoutController , getMeController };
