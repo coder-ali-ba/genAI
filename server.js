@@ -4,7 +4,8 @@ configEnv()
 import app from "./src/app.js"
 
 import connectToDB from "./src/config/database.js"
-
+import invokeGeminiAI from "./src/services/aiServices.js"
+invokeGeminiAI()
 
 connectToDB().then(() => {
     app.listen(3000, () => {
