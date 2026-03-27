@@ -4,9 +4,11 @@ configEnv()
 import app from "./src/app.js"
 
 import connectToDB from "./src/config/database.js"
-import invokeGeminiAI from "./src/services/aiServices.js"
-invokeGeminiAI()
+import { resume , selfDescription , jobDescription} from "./src/services/temp.js";
+import generateInterviewReport from "./src/services/aiServices.js";
 
+
+generateInterviewReport({resume , selfDescription , jobDescription})
 connectToDB().then(() => {
     app.listen(3000, () => {
         console.log("server running on http://localhost:3000");
