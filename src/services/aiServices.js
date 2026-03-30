@@ -4,6 +4,8 @@ import {zodToJsonSchema } from "zod-to-json-schema"
 
 
 
+
+
 const ai = new GoogleGenAI({
     apiKey : process.env.GOOGLEGENAI_API_KEY
 })
@@ -15,7 +17,7 @@ const interviewReportSchema =z.object({
         intention: z.string().describe("The intention of interviewer behind asking this question"),
         answer: z.string().describe("How to answer this question , what points to be covered , what approach to take etc.")
     })).describe("Technical question sthat can be asked in the interview along with their intention and how to answer them."),
-    behabiouralQuestion: z.array(z.object({
+    behaviouralQuestion: z.array(z.object({
         question: z.string().describe("The Technical question can be asked in the interview"),
         intention: z.string().describe("The intention of interviewer behind asking this question"),
         answer: z.string().describe("How to answer this question , what points to be covered , what approach to take etc.")
@@ -33,7 +35,8 @@ const interviewReportSchema =z.object({
 
  const generateInterviewReport = async ({resume , selfDescription , jobDescription}) => {
     
-   const prompt = `Generate Interview report for the for a candidate with following details :
+   const prompt = `Generate Interview report for the for a candidate with following details:
+
    Resume: ${resume}
    Self Description: ${selfDescription}
    Job Description: ${jobDescription}` 
@@ -46,7 +49,8 @@ const interviewReportSchema =z.object({
         responseJsonSchema: zodToJsonSchema(interviewReportSchema)
     }
    })
-   console.log(JSON.parse(response.text))
+
+   return JSON.parse(response.text)
 
 }
 
