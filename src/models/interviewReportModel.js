@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { string } from "zod";
+import { required } from "zod/mini";
 
 
 
@@ -90,6 +92,10 @@ const interviewReportSchema = new mongoose.Schema({
     user : {
     type: mongoose.Schema.Types.ObjectId,
     ref:"users"
+    },
+    title:{
+        type: string,
+        required :[true, "Title is required"]
     }
 } , {
     timestamps : true

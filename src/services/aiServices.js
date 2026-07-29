@@ -5,11 +5,6 @@ import {zodToJsonSchema } from "zod-to-json-schema"
 
 
 
-
-const ai = new GoogleGenAI({
-    apiKey : process.env.GOOGLEGENAI_API_KEY
-})
-
 const interviewReportSchema =z.object({
     matchScore: z.number().describe("A number between 1 to 100 indicating how well the candidate's profile matches the job description"),
     technicalQuestions: z.array(z.object({
@@ -30,11 +25,14 @@ const interviewReportSchema =z.object({
         day: z.number().describe("The day number in the preparation plan , starting from 1"),
         focus: z.string().describe("The main focus of this day in the preparation plan, e.g. data structures , system designs , mock interview "),
         tasks: z.array(z.string()).describe("List of tasks to be done on this day to follow the preparation plan, e.g. read specific book ")
-    })).describe("A day-wise preparation plan for the candidate to follow  description in order to prepare for the interview effectively")
+    })).describe("A day-wise preparation plan for the candidate to follow  description in order to prepare for the interview effectively"),
+    title:z.string("The title of the job for which interview report is generated")
 })
 
  const generateInterviewReport = async ({resume , selfDescription , jobDescription}) => {
-    
+    const ai = new GoogleGenAI({
+       apiKey : process.env.GOOGLEGENAI_API_KEY
+    })
    const prompt = `Generate Interview report for the for a candidate with following details:
 
    Resume: ${resume}
