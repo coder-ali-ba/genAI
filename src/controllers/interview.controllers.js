@@ -25,7 +25,7 @@ const generateInterviewReportController = async (req, res) => {
 
   res.status(201).json({
     message: "Interview Report Generated Successfully",
-    interviewReport
+    interviewReport: interviewReportByAi
   })
 }
 
