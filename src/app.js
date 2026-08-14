@@ -15,5 +15,7 @@ app.use(cors({
 
 app.use("/api/auth" , authRouter)
 app.use("/api/interview" , interviewRouter)
-
+app.use("/" , (req , res)=>{
+    res.send("Server Is UPPPPP>>>>>>>")
+})
 export default app
