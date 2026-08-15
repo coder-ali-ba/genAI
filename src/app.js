@@ -8,8 +8,16 @@ import interviewRouter from "./routes/interview.routes.js";
 const app =express()
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors())
 app.use(express.urlencoded({extended:true}))
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://gen-ai-frontend-chi.vercel.app",
+    ],
+    credentials: true,
+  })
+);
 
 app.use("/api/auth" , authRouter)
 app.use("/api/interview" , interviewRouter)
