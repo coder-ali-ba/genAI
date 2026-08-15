@@ -8,6 +8,15 @@ const registerController = async (req, res) => {
   const { email, userName, password } = req.body;
 
   console.log(email , userName , password);
+
+  res.status(200).json({
+    message: "got api",
+    data: {
+      email,
+      userName,
+      password
+    }
+  })
   
   // if (!userName || !email || !password) {
   //   return res.status(400).json({
