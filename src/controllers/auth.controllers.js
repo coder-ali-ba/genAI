@@ -6,45 +6,48 @@ import tokenBlacklistModel from "../models/blacklistModel.js";
 
 const registerController = async (req, res) => {
   const { email, userName, password } = req.body;
-  if (!userName || !email || !password) {
-    return res.status(400).json({
-      message: "Please provide required fields",
-    });
-  }
 
-  const alreadyExists = await userModel.findOne({
-    $or: [{ userName }, { email }],
-  });
+  console.log(email , userName , password);
+  
+  // if (!userName || !email || !password) {
+  //   return res.status(400).json({
+  //     message: "Please provide required fields",
+  //   });
+  // }
 
-  if (alreadyExists) {
-    return res.status(400).json({
-      message: "User already exists",
-    });
-  }
+  // const alreadyExists = await userModel.findOne({
+  //   $or: [{ userName }, { email }],
+  // });
 
-  const hashPass = await bcrypt.hash(password, 10);
-  const createUser = await userModel.create({
-    userName,
-    email,
-    password: hashPass,
-  });
+  // if (alreadyExists) {
+  //   return res.status(400).json({
+  //     message: "User already exists",
+  //   });
+  // }
 
-  const token = jwt.sign(
-    { id: createUser._id, userName: createUser.userName },
-    process.env.JWT_SECRET,
-    { expiresIn: "1d" },
-  );
+  // const hashPass = await bcrypt.hash(password, 10);
+  // const createUser = await userModel.create({
+  //   userName,
+  //   email,
+  //   password: hashPass,
+  // });
 
-  res.cookie("token", token);
+  // const token = jwt.sign(
+  //   { id: createUser._id, userName: createUser.userName },
+  //   process.env.JWT_SECRET,
+  //   { expiresIn: "1d" },
+  // );
 
-  res.status(201).json({
-    message: "User Created Successfully",
-    user: {
-      id: createUser._id,
-      userName: createUser.userName,
-      email: createUser.email,
-    },
-  });
+  // res.cookie("token", token);
+
+  // res.status(201).json({
+  //   message: "User Created Successfully",
+  //   user: {
+  //     id: createUser._id,
+  //     userName: createUser.userName,
+  //     email: createUser.email,
+  //   },
+  // });
 };
 
 const loginUserController = async (req, res) => {
