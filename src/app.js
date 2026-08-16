@@ -13,7 +13,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://gen-ai-frontend-chi.vercel.app",
+      "https://gen-ai-ebon-omega.vercel.app",
     ],
     credentials: true,
   })
