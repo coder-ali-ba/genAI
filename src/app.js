@@ -11,11 +11,10 @@ app.use(cookieParser())
 app.use(express.urlencoded({extended:true}))
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://gen-ai-ebon-omega.vercel.app",
-    ],
+    origin: "https://gen-ai-frontend-chi.vercel.app",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
