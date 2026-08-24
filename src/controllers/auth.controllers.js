@@ -3,8 +3,11 @@ import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import tokenBlacklistModel from "../models/blacklistModel.js";
+import connectToDB from "../config/database.js"
 
 const registerController = async (req, res) => {
+  await connectToDB()
+
   const { email, userName, password } = req.body;
   if (!userName || !email || !password) {
     return res.status(400).json({
